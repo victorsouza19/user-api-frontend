@@ -23,6 +23,8 @@
 
     <b-button variant="primary" class="w-100 mt-3" @click="login">Login</b-button>
 
+    <router-link to="/login"><button class="btn btn-link mt-3">Forgot your password?</button></router-link>
+
     <div class="img">
       <img id="img-top" src="../assets/login.svg" alt="login-img">
     </div>
@@ -52,6 +54,8 @@ export default {
         console.log(res);
         localStorage.setItem('token', res.data.token);
         this.$router.push({name: 'Home'});
+        /* provisory reload to change navbar */
+        return location.reload();
 
       }).catch(err =>{
         this.error = err.response.data.err;

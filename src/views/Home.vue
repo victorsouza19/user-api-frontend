@@ -1,9 +1,5 @@
 <template>
   <div>
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/Register">Register</router-link>
-    </div>
     <div class="text-top">
       <h3>Welcome to User-API front-end!</h3>
       <p>If you liked it, don't forget to give a star in the Github repository!</p>
@@ -17,7 +13,6 @@
 
 <script>
 export default {
-
 }
 </script>
 

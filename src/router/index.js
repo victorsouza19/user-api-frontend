@@ -7,7 +7,8 @@ import axios from 'axios';
 const Home = () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
 Register = () => import(/* webpackChunkName: "register" */ '../views/Register.vue'),
 Users = () => import(/* webpackChunkName: "users" */ '../views/Users.vue'),
-Unauthorized = () => import(/* webpackChunkName: "unauthorized" */ '../views/Unauthorized.vue');
+Unauthorized = () => import(/* webpackChunkName: "unauthorized" */ '../views/Unauthorized.vue'),
+Edit = () => import(/* webpackChunkName: "edit" */ '../views/Edit.vue');
 
 function AdminAuth(to, from, next){
   if(localStorage.getItem('token') != undefined){
@@ -16,7 +17,6 @@ function AdminAuth(to, from, next){
         Authorization: "Bearer " + localStorage.getItem('token')
       }
     };
-    console.log(req);
 
     axios.post("http://localhost:8001/validate", {}, req).then(res => {
       console.log(res.data.res);
@@ -40,6 +40,16 @@ const routes = [
     component: Login
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    beforeEnter: function(to, from, next){
+      localStorage.removeItem('token');
+      /* provisory reload to change navbar */
+      location.reload();
+      return next("/");
+    }
+  },
+  {
     path: '/register',
     name: 'Register',
     component: Register
@@ -58,6 +68,12 @@ const routes = [
     path: '/admin/users',
     name: 'Users',
     component: Users,
+    beforeEnter: AdminAuth
+  },
+  {
+    path: '/admin/users/edit/:id',
+    name: 'UserEdit',
+    component: Edit,
     beforeEnter: AdminAuth
   }
 ]
